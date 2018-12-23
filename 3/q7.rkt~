@@ -1,0 +1,64 @@
+#lang racket
+
+(define (helper-checker l c1 c2 c3 c4 c5 c6 c7 c8 c9)
+  (cond ((null? l) #t)
+        ((= (car l) 1) (if (= c1 1) #f (helper-checker (cdr l) (+ c1 1) c2 c3 c4 c5 c6 c7 c8 c9)))
+        ((= (car l) 2) (if (= c2 1) #f (helper-checker (cdr l) c1 (+ c2 1) c3 c4 c5 c6 c7 c8 c9)))
+        ((= (car l) 3) (if (= c3 1) #f (helper-checker (cdr l) c1 c2 (+ c3 1) c4 c5 c6 c7 c8 c9)))
+        ((= (car l) 4) (if (= c4 1) #f (helper-checker (cdr l) c1 c2 c3 (+ c4 1) c5 c6 c7 c8 c9)))
+        ((= (car l) 5) (if (= c5 1) #f (helper-checker (cdr l) c1 c2 c3 c4 (+ c5 1) c6 c7 c8 c9)))
+        ((= (car l) 6) (if (= c6 1) #f (helper-checker (cdr l) c1 c2 c3 c4 c5 (+ c6 1) c7 c8 c9)))
+        ((= (car l) 7) (if (= c7 1) #f (helper-checker (cdr l) c1 c2 c3 c4 c5 c6 (+ c7 1) c8 c9)))
+        ((= (car l) 8) (if (= c8 1) #f (helper-checker (cdr l) c1 c2 c3 c4 c5 c6 c7 (+ c8 1) c9)))
+        ((= (car l) 9) (if (= c9 1) #f (helper-checker (cdr l) c1 c2 c3 c4 c5 c6 c7 c8 (+ c9 1))))))
+
+(define (list-checker l)
+  (helper-checker l 0 0 0 0 0 0 0 0 0))
+
+(define (check-c l)
+  (cond ((null? l) #t)
+        (else (let*([l1 (car l)]
+                    [l2 (cadr l)]
+                    [l3 (caddr l)]
+                    [sl1 (list (car l1) (cadr l1) (caddr l1) (car l2) (cadr l2) (caddr l2) (car l3) (cadr l3) (caddr l3))]
+                    [l4 (cdddr l1)]
+                    [l5 (cdddr l2)]
+                    [l6 (cdddr l3)]
+                    [sl2 (list (car l4) (cadr l4) (caddr l4) (car l5) (cadr l5) (caddr l5) (car l6) (cadr l6) (caddr l6))]
+                    [l7 (cdddr l4)]
+                    [l8 (cdddr l5)]
+                    [l9 (cdddr l6)]
+                    [sl3 (list (car l7) (cadr l7) (caddr l7) (car l8) (cadr l8) (caddr l8) (car l9) (cadr l9) (caddr l9))])
+                (if (and (list-checker sl1) (list-checker sl2) (list-checker sl3)) (check-c (cdddr l)) #f)))))
+
+(define (check-a l)
+  (cond ((null? l) #t)
+        (else (if (list-checker (car l)) (check-a (cdr l)) #f))))
+
+(define (check-b-hel l n)
+  (cond ((= n 9) #t)
+        (else (let*([l1 (car l)]
+                    [m1 (cdr l)]
+                    [l2 (car m1)]
+                    [m2 (cdr m1)]
+                    [l3 (car m2)]
+                    [m3 (cdr m2)]
+                    [l4 (car m3)]
+                    [m4 (cdr m3)]
+                    [l5 (car m4)]
+                    [m5 (cdr m4)]
+                    [l6 (car m5)]
+                    [m6 (cdr m5)]
+                    [l7 (car m6)]
+                    [m7 (cdr m6)]
+                    [l8 (car m7)]
+                    [m8 (cdr m7)]
+                    [l9 (car m8)]
+                    [listf (list (car l1) (car l2) (car l3) (car l4) (car l5) (car l6) (car l7) (car l8) (car l9))])
+                (if (list-checker listf) (check-b-hel (list (cdr l1) (cdr l2) (cdr l3) (cdr l4) (cdr l5) (cdr l6) (cdr l7) (cdr l8) (cdr l9)) (+ n 1)) #f)))))
+
+(define (check-b l)
+  (check-b-hel l 0))
+
+(define (sudoku-checker l)
+  (if (and (check-a l) (check-b l) (check-c l)) #t #f))

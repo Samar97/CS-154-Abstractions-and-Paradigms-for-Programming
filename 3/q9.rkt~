@@ -1,0 +1,5 @@
+#lang racket
+(define (shuffle l1 l2)
+  (cond ((null? l1) (list l2))
+        ((null? l2) (list l1))
+        (else (append (map (lambda(x) (cons (car l1) x)) (shuffle (cdr l1) l2)) (map (lambda(y) (cons (car l2) y)) (shuffle l1 (cdr l2)))))))

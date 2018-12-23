@@ -1,0 +1,10 @@
+#lang racket
+(provide fewest-moves)
+(define (myfewest-moves l x)
+  (cond (( and (= (car l) 0) (<= (length l) 4)) (+ x 1))
+         (( and (= (car l) 1) (<= (length l) 2)) (+ x 1))
+         [(= (car l) 0) (min (myfewest-moves (cdr l) (+ x 1)) (myfewest-moves (cddddr l) (+ x 1)))]
+         [(= (car l) 1) (min (myfewest-moves (cdr l) (+ x 1)) (myfewest-moves (cddr l) (+ x 1)))]))
+
+(define (fewest-moves x)
+  (if (null? x) 0 (myfewest-moves x 0)))

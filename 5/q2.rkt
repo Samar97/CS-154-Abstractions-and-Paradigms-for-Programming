@@ -1,0 +1,21 @@
+#lang racket
+
+(provide sum-of-last-three)
+
+(define (sum-of-last-three)
+  (define n1 0)
+  (define n2 0)
+  (define n3 0)
+  (define state 0)
+  (set! n3 (read))
+  (set! state (+ n1 n2 n3))
+  (define (helploop)
+    (newline)
+    (display state)
+    (newline)
+    (set! n1 n2)
+    (set! n2 n3)
+    (set! n3 (read))
+    (set! state (+ n1 n2 n3))
+    (helploop))
+  (helploop))

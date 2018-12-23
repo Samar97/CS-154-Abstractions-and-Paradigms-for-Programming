@@ -1,0 +1,7 @@
+#lang racket
+
+(define (myreverse l x)
+  (if (= (length l) 0) x (myreverse (cdr l) (cons (car l) x))))
+
+(define (reverse l)
+  (myreverse l '()))

@@ -1,0 +1,7 @@
+#lang racket
+(provide cprod)
+(define (cprod l)
+  (define (g x y)
+    (append (map (lambda(l1) (cons x l1)) (cprod (cdr l))) y))
+  (cond [(null? l) '(())]
+        [else (foldr g '() (car l))]))

@@ -1,0 +1,90 @@
+Q1.
+
+(to-decimal '(#\2 #\4 #\3 #\. #\6 #\5))
+#e243.65
+(to-decimal '(#\. #\6 #\5))
+#e0.65
+(to-decimal '(#\2 #\4 #\3 #\.))
+243
+
+Q2. This  is a non-terminating program.  The comments are not  part of
+the output.
+    
+> (sum-of-last-three)
+4
+
+4     ;This is (0+0+4)
+6
+
+10    ;This is (0+4+6)
+78
+
+88    ;This is (4+6+78)
+23
+
+107   ;This is (6+78+23)
+67
+
+168   ;This is (78+23+67)
+
+
+Q3.
+(define (test1)
+  (let ((x (f 0)) (y (f 1)))
+    (+ x y)))
+
+(define (test2)
+  (let ((x (f 1)) (y (f 0)))
+    (+ x y)))
+
+> (test1)
+0
+> (test2)
+1
+> (test2)
+1
+> (test1)
+0
+> 
+
+Q4. The two  dots before the message "Incorrect password"  are the two
+icons that are displayed on an error. The message "Insufficient funds"
+is NOT an error message.
+
+> (define acc (make-account
+               20000 'sdshf))
+> ((acc 'sdshf 'withdraw) 400)
+19600
+> ((acc 'jdfj 'withdraw) 1400)
+. . Incorrect password
+> ((acc 'sdshf 'withdraw) 1400)
+18200
+> ((acc 'jdfj 'deposit) 1400)
+. . Incorrect password
+> > ((acc 'sdshf 'withdraw) 1400000)
+"Insufficient funds"
+
+Q5. Assume that we shall invoke a make-joint only with original
+    account holders and not with joint account holders. 
+
+> (define acc (make-account 200000  'open-sesame))
+> (define j-acc (make-joint acc 'open-sesame 'rosebud))
+> ((j-acc 'rosebud 'withdraw) 200)
+199800
+> ((acc 'open-sesame 'withdraw) 200)
+199600
+> ((j-acc 'open-sesame 'withdraw) 200)
+. . Incorrect password
+> ((acc 'rosebud 'withdraw) 200)
+. . Incorrect password
+> ((acc 'open-sesame 'wihdraw) 200)
+. . Unknown request --  wihdraw
+> ((acc 'open-sesame 'withdraw) 400)
+199200
+
+In addition all the test cases of Q4 should work here without changes.
+
+Q6.
+
+Answer the question neatly on a sheet of paper and upload a photograph
+of the sheet. 
